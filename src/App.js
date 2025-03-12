@@ -6,7 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Detail from './pages/Detail';
 import Add from './pages/Add';
 import Edit from './pages/Edit';
-import Contact from './pages/Contact'; // Assuming you have a Contact component
+import Contact from './pages/Contact';
 
 const App = () => {
   return (
