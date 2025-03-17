@@ -1,10 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Table, TableBody, TableCell, TableHead, TableRow, IconButton, Button } from '@mui/material';
+import { Table, TableBody, TableCell, TableHead, TableRow, IconButton, Button, Paper } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  container: {
+    padding: '20px',
+    maxWidth: '800px',
+    margin: 'auto',
+  },
+  addButton: {
+    marginBottom: '15px',
+    backgroundColor: '#1976d2',
+    color: '#fff',
+    '&:hover': {
+      backgroundColor: '#115293',
+    },
+  },
+  table: {
+    minWidth: 650,
+  },
+  actionIcons: {
+    display: 'flex',
+    gap: '10px',
+  },
+});
 
 const Dashboard = () => {
+  const classes = useStyles();
   const [staffs, setStaffs] = useState([]);
 
   useEffect(() => {
@@ -25,15 +50,17 @@ const Dashboard = () => {
   };
 
   return (
-    <>
-      <Button component={Link} to="/add">Add Staff</Button>
-      <Table>
+    <Paper className={classes.container} elevation={3}>
+      <Button component={Link} to="/add" className={classes.addButton} variant="contained">
+        Add Staff
+      </Button>
+      <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Address</TableCell>
-            <TableCell>Age</TableCell>
-            <TableCell>Actions</TableCell>
+            <TableCell><strong>Name</strong></TableCell>
+            <TableCell><strong>Address</strong></TableCell>
+            <TableCell><strong>Age</strong></TableCell>
+            <TableCell><strong>Actions</strong></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -42,11 +69,11 @@ const Dashboard = () => {
               <TableCell>{staff.name}</TableCell>
               <TableCell>{staff.address}</TableCell>
               <TableCell>{staff.age}</TableCell>
-              <TableCell>
-                <IconButton component={Link} to={`/edit/${staff.id}`}>
+              <TableCell className={classes.actionIcons}>
+                <IconButton component={Link} to={`/edit/${staff.id}`} color="primary">
                   <Edit />
                 </IconButton>
-                <IconButton onClick={() => handleDelete(staff.id)}>
+                <IconButton onClick={() => handleDelete(staff.id)} color="secondary">
                   <Delete />
                 </IconButton>
               </TableCell>
@@ -54,7 +81,7 @@ const Dashboard = () => {
           ))}
         </TableBody>
       </Table>
-    </>
+    </Paper>
   );
 }
 
